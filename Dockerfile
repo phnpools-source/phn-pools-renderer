@@ -2,17 +2,13 @@ FROM mcr.microsoft.com/playwright:v1.48.0-noble
 
 WORKDIR /app
 
-# Copy package files first
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Fixed line — uses npm install instead of npm ci
+RUN npm install --production
 
-# Copy the rest of the app
 COPY . .
 
-# Expose port for Railway
 EXPOSE 3000
 
-# Start the server
 CMD ["npm", "start"]
